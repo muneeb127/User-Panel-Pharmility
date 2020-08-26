@@ -1,0 +1,232 @@
+/* Main Styling */
+/* 
+    Fonts:
+    font-family: 'Poppins', ;
+    font-family: 'Oswald', ;
+    font-family: 'Poppins';
+
+    Colors:
+        Navbar:
+        color: rgb(255, 255, 255);
+
+        Background Color:
+        background: #BABAAB;
+*/
+
+body, html{
+    height: 100%;
+    margin-top: 0px;
+    margin-top: 0px;
+    /* opacity: 0.5;
+    font-family: 'Poppins';
+    background-image: url("../images/background-2.jpg") ;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; */
+}
+
+/* 
+body{
+    padding-top: 70px;
+} */
+
+/* =================================Search Page========================================= */
+.search-page {
+    opacity: 1;
+    font-family: 'Poppins';
+    background-image: url("../images/background-2.jpg") ;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    padding-top: 90px;
+}
+
+/* Main Form div */
+
+.form{
+    width: 60%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+    padding-left: 75px;
+    margin: auto auto;
+    align-content: center;
+}
+
+.from Icon {
+    margin-right: 0px;
+}
+
+.form Form{
+    width: 100%;
+    margin: auto auto;
+    /* padding: 20px 20px; */
+    background-color: #ffffff; 
+    border-radius: 10px;
+    box-shadow: 5px 10px #d1dce1;
+    opacity: 0.9; 
+}
+
+.form .button {
+    border-radius: 10px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.search-autocomplete{
+    border-radius: 4px 0px 0px 4px;
+}
+
+
+/* .MuiButton-contained {
+    color: rgba(0, 0, 0, 0.87);
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+    background-color: #e0e0e0;
+    margin-left: 10px;
+} */
+
+.form Radio{
+    text-align: center;
+}
+
+/* ========List of Medicines=========== */
+
+.medicine-list{
+    margin-top: 30px;
+}
+
+.med-name{
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: 'Poppins';
+    /* text-transform: bold; */
+    font-weight: bold;
+}
+
+.company-name{
+    text-transform: uppercase;
+    font-size: 15px;
+    font-family: 'Oswald';
+    letter-spacing: 1px;
+}
+
+.card-item{
+    border: 1.5px solid black;
+    margin: auto;
+    width: 70%;
+    margin-bottom: 10px;
+
+}
+
+/* .medicine-list-item{
+    margin-top: 20px;
+    margin-bottom: 10px;
+} */
+
+/* Selected Medicine Component */
+
+.dosage-segment{
+    margin-top: 20px;
+}
+
+.dosage-form{
+    text-transform: capitalize;
+    font-size: 20px;
+    font-family: 'Poppins';
+}
+
+.med-form{
+    color: black;
+}
+
+.left-col{
+    text-align: center;
+    padding-top: 20px;
+}
+
+/* ==================================Location Page====================================== */
+
+h1,h2,h3,h4,h5,h6,p,a,ul {
+    font-family: 'Poppins';
+}
+
+.ui.list .list>.item .header, .ui.list>.item .header {
+    display: block;
+    margin: 0;
+    font-family: 'Poppins';
+    font-weight: 700;
+    color: rgba(0,0,0,.87);
+}
+
+/* First Row */
+
+.location-page{
+    font-family: 'Poppins';
+    /* background: #BABAAB; */
+    background: #2ba4c9;
+    height: 100%;
+    padding-top: 90px;
+    padding-bottom: 40px;
+}
+
+.first-row{
+    background: white;
+    /* margin-top: 20px; */
+    border: 1px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 5px 10px #d1dce1;
+    opacity: 0.9;
+}
+
+/* Selected Medicine Section */
+
+.selected-med h1{
+    margin-bottom: 0px;
+}
+.selected-med p{
+    text-transform: capitalize;
+}
+
+/* Alternate Medcine Section */
+
+.alternate-med{
+    /* margin-top: 10px; */
+    border-left: 1px solid black;
+}
+
+/* Second Row */
+
+.second-row{
+    min-height: 550px;
+    margin-top: 30px;
+    background: white;
+    margin-top: 20px;
+    border: 1px solid black;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    border-radius: 10px;
+    box-shadow: 5px 10px #d1dce1;
+    opacity: 0.9;
+}
+
+/* Map */
+
+.map {
+    padding: 0;
+}
+
+/* Pharmacy List */
+
+.pharmacy-list{
+    margin-top: 10px;
+    border-left: 1px solid black;
+}
+
+List.item:hover{
+    background-color: brown;
+}
