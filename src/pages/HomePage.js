@@ -11,7 +11,7 @@ function HomePage(props) {
 
     return (
         <div>
-            <h1>Home Page</h1>
+            <h1>Refer to Dvago when developing Home Page(Covid, blocks, our services, video, display product cards, slider</h1>
         </div>
     )
 }

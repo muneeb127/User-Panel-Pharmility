@@ -1,9 +1,8 @@
 /* Main Styling */
 /* 
     Fonts:
-    font-family: 'Poppins', ;
-    font-family: 'Oswald', ;
-    font-family: 'Poppins';
+    font-family: 'Gilroy';
+    font-family: 'Khula', sans-serif;
 
     Colors:
         Navbar:
@@ -15,143 +14,156 @@
 
 body, html{
     height: 100%;
+    width: 100%;
     margin-top: 0px;
     margin-top: 0px;
-    /* opacity: 0.5;
-    font-family: 'Poppins';
-    background-image: url("../images/background-2.jpg") ;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed; */
+    font-family: 'Khula', sans-serif;
 }
 
-/* 
-body{
-    padding-top: 70px;
+/* =================================Navbar============================================== */
+
+.navbar-brand {
+    font-size: 1.7rem;
+
+}
+
+/* h1, h2, h3, h4, h5, h6, p, a, ul {
+    font-family: 'Khula';
 } */
+/* 
+.navbar {
+    height: 70px;
+} */
+
+.bg-dark {
+    background-color: #171e30!important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgb(255 255 255);
+}
+
+.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link {
+    color: rgb(0, 210, 144);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(29, 245, 177);
+}
+
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+    font-size: 17px;
+}
 
 /* =================================Search Page========================================= */
 .search-page {
     opacity: 1;
-    font-family: 'Poppins';
-    background-image: url("../images/background-2.jpg") ;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100vh;
-    padding-top: 90px;
+    font-family: 'Khula', sans-serif;
+    /* height: 100vh; */
+    padding-bottom: 10px;
 }
 
-/* Main Form div */
-
-.form{
-    width: 60%;
-    padding-top: 50px;
+.search-layout{
+    padding-top: 1px;
+    background: #00C9FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #92FE9D, #00C9FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     padding-bottom: 50px;
-    padding-right: 50px;
-    padding-left: 75px;
-    margin: auto auto;
-    align-content: center;
 }
 
-.from Icon {
+.search-container{
+    padding-left: 7px;
+}
+
+.search-layout h1{
+    font-size: 4rem;
+    color: #171e30; 
+}
+
+.search-layout h4{
+    font-size: 1.5rem;
+    color: #171e30; 
+    margin-top: 12px;
+}
+
+.ui.button:hover {
+    background-color: rgba(29, 245, 177);
+    background-image: none;
+    box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
+    color: #171e30;
+}
+
+.ui.button{
+    background-color: rgb(0, 210, 144);
+    color: #171e30;
+}
+
+.ui.button:not(.icon)>.icon:not(.button):not(.dropdown) {
+    margin: 0 .42857143em 0 -.21428571em;
     margin-right: 0px;
 }
 
-.form Form{
-    width: 100%;
-    margin: auto auto;
-    /* padding: 20px 20px; */
-    background-color: #ffffff; 
-    border-radius: 10px;
-    box-shadow: 5px 10px #d1dce1;
-    opacity: 0.9; 
+.ui.form input:not([type]), .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=email], .ui.form input[type=file], .ui.form input[type=number], .ui.form input[type=password], .ui.form input[type=search], .ui.form input[type=tel], .ui.form input[type=text], .ui.form input[type=time], .ui.form input[type=url] {
+    font-family: 'Khula', sans-serif;
+    border: 1px solid #171e30;
+    color: #171e30;
 }
 
-.form .button {
-    border-radius: 10px;
-    font-size: 15px;
-    text-align: center;
-}
-
-.search-autocomplete{
-    border-radius: 4px 0px 0px 4px;
-}
-
-
-/* .MuiButton-contained {
-    color: rgba(0, 0, 0, 0.87);
-    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
-    background-color: #e0e0e0;
-    margin-left: 10px;
-} */
-
-.form Radio{
-    text-align: center;
+.ui.checkbox label, .ui.checkbox+label {
+    color: #171e30;
 }
 
 /* ========List of Medicines=========== */
 
+.makeStyles-heading-9 {
+    color: #171e30;
+}
+
 .medicine-list{
     margin-top: 30px;
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 20px;
+    font-family: 'Khula', sans-serif;
 }
 
-.med-name{
-    text-transform: uppercase;
-    font-size: 20px;
-    font-family: 'Poppins';
-    /* text-transform: bold; */
-    font-weight: bold;
+h1, h2, h3, h4, h5 {
+    font-family: 'Khula', sans-serif;
+    color: #171e30;
 }
 
-.company-name{
-    text-transform: uppercase;
-    font-size: 15px;
-    font-family: 'Oswald';
-    letter-spacing: 1px;
-}
-
-.card-item{
-    border: 1.5px solid black;
-    margin: auto;
-    width: 70%;
+.MuiAccordion-rounded{
     margin-bottom: 10px;
-
 }
 
-/* .medicine-list-item{
-    margin-top: 20px;
-    margin-bottom: 10px;
-} */
+@media only screen and (max-width: 600px) {
+    .MuiContainer-root{
+      width: 90%;
+    }
+}
+
 
 /* Selected Medicine Component */
 
-.dosage-segment{
-    margin-top: 20px;
-}
-
-.dosage-form{
+.dosage-form-segment{
+    margin: 10px;
+    padding: 10px;
     text-transform: capitalize;
-    font-size: 20px;
-    font-family: 'Poppins';
 }
 
-.med-form{
-    color: black;
+.dosage-form-segment:hover{
+    background-color: rgba(29, 245, 177);
 }
 
-.left-col{
-    text-align: center;
-    padding-top: 20px;
+.dosage-form-segment p{
+    color: #171e30;
 }
 
 /* ==================================Location Page====================================== */
 
-h1,h2,h3,h4,h5,h6,p,a,ul {
-    font-family: 'Poppins';
-}
+
 
 .ui.list .list>.item .header, .ui.list>.item .header {
     display: block;
@@ -230,3 +242,39 @@ h1,h2,h3,h4,h5,h6,p,a,ul {
 List.item:hover{
     background-color: brown;
 }
+
+/* =======================================Order Page=========================================== */
+
+.MuiChip-outlinedPrimary {
+    color: rgb(0, 210, 144)!important;
+    border: 1px solid rgb(0, 210, 144)!important ;
+    margin-top: 10px;
+}
+
+.order-container {
+    margin: 10px;
+    padding: 10px;
+}
+
+.ui.list .list > .item a.header, .ui.list > .item a.header {
+    color: rgb(0, 210, 144) !important;
+    margin-bottom: 3px;
+}
+
+.ui.list .list>.item a.header:hover, .ui.list>.item a.header:hover {
+    color: #171e30!important;
+}
+
+.ui.list .list > .item .description, .ui.list > .item .description {
+    display: block;
+    color: #171e30;
+}
+
+.ui.list .list > .item a, .ui.list > .item a {
+    cursor: context-menu;
+}
+
+.ui.list .list > .item > i.icon, .ui.list > .item > i.icon {
+    color: rgb(0, 210, 144);
+}
+

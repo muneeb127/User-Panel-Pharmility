@@ -6,13 +6,20 @@ import {
   Route,
 } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
+import { LastLocationProvider } from 'react-router-last-location';
 
 import HomePage from './pages/HomePage';
 import LocationPage from './pages/LocationPage';
+import OrderPage from './pages/OrderPage';
+import CheckOutPage from './pages/CheckOutPage';
 // import SearchPage from './pages/SearchPage';
 import SearchPage from './pages/SearchPage-2';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import NavbarComponent from './pages/components/layout/NavbarComponent';
 import store, {persistor} from "./store/store";
+
+import PrivateRoute from './common/PrivateRoute';
 
 // function App({store, persistor}) {
 function App() {
@@ -20,12 +27,18 @@ function App() {
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <Router>
-                    <NavbarComponent />
-                    <Switch>
-                        <Route exact path="/" component = {HomePage} />
-                        <Route exact path="/search" component = {SearchPage} />
-                        <Route exact path="/location" component = {LocationPage} />
-                    </Switch>
+                    <LastLocationProvider>
+                        <NavbarComponent />
+                        <Switch>
+                            <Route exact path="/" component = {HomePage} />
+                            <Route exact path="/search" component = {SearchPage} />
+                            <Route exact path="/location" component = {LocationPage} />
+                            <Route exact path="/login" component = {Login} />
+                            <Route exact path="/register" component = {Register} />
+                            <PrivateRoute exact path = "/order" component = {OrderPage}/>
+                            <PrivateRoute exact path = "/checkout" component = {CheckOutPage}/>
+                        </Switch>
+                    </LastLocationProvider>
                 </Router>
             </PersistGate>
         </Provider>

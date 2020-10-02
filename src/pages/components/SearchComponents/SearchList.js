@@ -1,158 +1,85 @@
-// //To render the list of medicines(which has been searched) 
-// //using the brandList array on clicking the submit button
-// import React from 'react';
-// import SelectedMedicine from './SelectedMedicine';
-// import Accordion from 'react-bootstrap/Accordion';
-// import { ListGroup, Card } from 'react-bootstrap';
-
-// class SearchList extends React.Component{
-
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//             selectedMedicines: [],
-//             isSelected: false
-//         }
-//     }
-
-//     componentDidUpdate(prevProps){
-//         if(!(this.props.brandList == prevProps.brandList)) // Check if it's a new medicine
-//         {
-//             this.setState({isSelected: false});
-//         }
-//     }
-
-//     onClickHandler = (event,item) => {
-//         // console.log(e,v);
-//         //item = item which has been clicked by the user
-//         //We need to expand that medicine to show it's dosage type
-//         //medicineList contains the list of all the medicines which share the same generic
-//         const {medicineList} = this.props;
-
-//         //Fetching all the medicines in medicineList which have the same brand name but have different dosage form
-//         let results = medicineList.filter(medicine => {
-//             return medicine.name === item.name ;
-//         });
-
-//         console.log("Selected Medicine: ", results);
-//         this.setState({selectedMedicines: results, isSelected: true});
-//     }
-
-
-//     render(){
-
-//         let list = [];
-//         const brandList = this.props.brandList;
-//         list = brandList.map((item , i) => {
-//             //Mapping each list item in BrandList as a different medicine
-//             return (     
-//                 //Passing the item in brandlist to onClickHandler
-//                 // <Accordion className = "list-item" key = {item.id}>
-//                 //     <Card style ={{borderRadius: "10px"}} className = "card-item" onClick = {(e)=> {this.onClickHandler(e,item)}}>
-//                 //         <Accordion.Toggle as={Card.Header} eventKey={i}>
-//                 //             <Card.Title className = "med-name">{item.name}</Card.Title>
-//                 //             <Card.Subtitle className = "company-name">{item.manufacturer}</Card.Subtitle>
-//                 //             {this.state.isSelected && <SelectedMedicine selectedMedicines = {this.state.selectedMedicines} eventKey = {i}/>}
-//                 //         </Accordion.Toggle>
-//                 //     </Card>
-//                 // </Accordion>
-//                 <Card  key = {item.id} style ={{borderRadius: "10px"}} className = "card-item" onClick = {(e)=> {this.onClickHandler(e,item)}}>
-//                     <Accordion.Toggle as={Card.Header} eventKey={i}>
-//                         <Card.Title className = "med-name">{item.name}</Card.Title>
-//                         <Card.Subtitle className = "company-name">{item.manufacturer}</Card.Subtitle>
-//                         {this.state.isSelected && <SelectedMedicine selectedMedicines = {this.state.selectedMedicines} eventKey = {i}/>}
-//                     </Accordion.Toggle>
-//                 </Card>
-//             );
-//         });
-
-//         return (
-//             //Rendering the list
-//             <>
-//             <ListGroup className = "medicine-list">
-//                 <Accordion className = "list-item">
-//                     {list}
-//                 </Accordion>
-//             </ListGroup>
-//             </>
-//         );
-//     }
-// }
-
-// export default SearchList ;
-
 //To render the list of medicines(which has been searched) 
 //using the brandList array on clicking the submit button
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import SelectedMedicine from './SelectedMedicine';
-import Accordion from 'react-bootstrap/Accordion';
-import { ListGroup, Card } from 'react-bootstrap';
+import {useSelector} from "react-redux";
 
-class SearchList extends React.Component{
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-    constructor(props){
-        super(props);
-        this.state = {
-            // brandList: [],
-            // medicineList:[],
-            selectedMedicines: [],
-            isSelected: false
-        }
-    }
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            width: '100%',
+            margin: 'auto auto',
+        },
+    }));
 
-    componentDidUpdate(prevProps){
-        if(!(this.props.brandList == prevProps.brandList)) // Check if it's a new medicine
-        {
-            this.setState({isSelected: false});
-        }
-    }
+function SearchList(props){
+    const classes = useStyles();
 
-    onClickHandler = (event,item) => {
-        // console.log(e,v);
-        //item = item which has been clicked by the user
-        //We need to expand that medicine to show it's dosage type
-        //medicineList contains the list of all the medicines which share the same generic
-        const {medicineList} = this.props;
+    const [selectedMedicine, setSelectedMedicine] = useState([]);
+    const [expanded, setExpanded] = React.useState(false);
 
-        //Fetching all the medicines in medicineList which have the same brand name but have different dosage form
-        let results = medicineList.filter(medicine => {
-            return medicine.name === item.name ;
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
+
+
+    let searchedMedicine = [];
+    searchedMedicine = useSelector(state => state.searchedMedicine.searchMedicines);
+
+    let brandNames = searchedMedicine.map(function(item){
+        return item['brandName'];
+    });
+    brandNames =  [...new Set(brandNames)];
+
+    useEffect(()=>{
+        console.log("Brand Names: ", brandNames);
+    }, [brandNames])
+
+    useEffect(() => {
+        console.log("Searched Medicine: ", searchedMedicine);
+    },[searchedMedicine])
+
+    const onClickHandler = (event,item) => {
+        console.log(event,item);
+
+        let result = searchedMedicine.filter(medicine => {
+            return medicine.brandName === item ;
         });
 
-        this.setState({selectedMedicines: results, isSelected: true});
-    }
+        console.log("Result: ", result);
+        setSelectedMedicine(result);
+    }    
 
-
-    render(){
-
-        let list = [];
-        const brandList = this.props.brandList;
-        list = brandList.map((item , i) => {
-            //Mapping each list item in BrandList as a different medicine
-            return (     
-                //Passing the item in brandlist to onClickHandler
-                    <Card key = {item.id} style ={{borderRadius: "10px"}} className = "card-item" onClick = {(e)=> {this.onClickHandler(e,item)}}>
-                        <Accordion.Toggle as={Card.Header} eventKey={i}>
-                            <Card.Title className = "med-name">{item.name}</Card.Title>
-                            <Card.Subtitle className = "company-name">{item.manufacturer}</Card.Subtitle>
-                        </Accordion.Toggle>
-                        {this.state.isSelected && <SelectedMedicine selectedMedicines = {this.state.selectedMedicines} eventKey = {i}/>}
-                    </Card>
-            );
-        });
-
-        return (
-            //Rendering the list
-            <>
-            <ListGroup className = "medicine-list">
-                <Accordion className = "list-item">
-                    {list}
+    let list;;
+    list = brandNames.map((item , i) => {
+        //Mapping each list item in Brand Names as a different medicine
+        return (     
+                <Accordion expanded={expanded === `panel${i}`} onChange={handleChange(`panel${i}`)} key = {i}>
+                    {console.log("item: ", i)}
+                    <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    onClick = {(e)=> {onClickHandler(e,item)}}
+                    >
+                        <h3>{item}</h3>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <SelectedMedicine selectedMedicine = {selectedMedicine}/>
+                    </AccordionDetails>
                 </Accordion>
-            </ListGroup>
-            </>
         );
-    }
+    });
+
+    return (
+        <div className={classes.root}>
+            {list}
+        </div>
+    );
 }
 
 export default SearchList ;

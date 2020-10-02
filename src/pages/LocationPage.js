@@ -1,71 +1,82 @@
-import React, {Component} from 'react';
-import { Container, List } from 'semantic-ui-react';
+import React, {useEffect, useState} from 'react';
+import {connect, useSelector} from "react-redux";
+import { Container} from 'semantic-ui-react';
 import {Row, Col} from 'react-bootstrap';
 import '../css/styles.css';
 import queryString from 'query-string';
+
+import * as medicine from "../store/ducks/medicine.duck";
+import * as retailerInventory from "../store/ducks/retailerInventory.duck";
 
 //Importing Components
 import MapContainer from './components/LocationComponents/Map';
 import AlternateMedicines from './components/LocationComponents/AlternateMedicines';
 
-//Importing data
-import medicineList from '../data/medicineList';
-import pharmacyList from '../data/pharmacyList';
-import alternateMedicine from '../data/alternateMedicine';
+function LocationPage(props){
 
+    const [selectedMedicine, setSelectedMedicine] = useState([]);
+    const [alternateMedicines, setAlternateMedicines] = useState([]);
 
-class LocationPage extends Component{
+    //Fetching all medicines from redux store
+    let medicineData = [];
+    medicineData = useSelector(state => state.medicine.medicines);
 
-    constructor(props){
-        super(props);
-        this.state = {
-            selectedMedicine: {},
-            alternateMedicines: [],
-            pharmacies: [],
-        }
-    }
+    let alternateMedicinesList = [];
+    alternateMedicinesList = useSelector(state => state.medicine.alternateMedicines);
 
-    componentDidMount(){
+    let retailers = [];
+    retailers = useSelector(state => state.retailer.list);
+
+    useEffect(()=>{
+        //Render the component again
+        setAlternateMedicines(alternateMedicinesList);
+        setSelectedMedicine(selectedMedicine);
+        // console.log("Retailers: ", retailers);
+
+    }, [medicineData, alternateMedicinesList, retailers]);
+
+    useEffect(()=>{
         //Fetching medicine Id from URL and using it to find the medicine
-        let params = queryString.parse(this.props.location.search)
+        let params = queryString.parse(props.location.search);
         // console.log("Param: ", params);
         const id = params.id;
-        // console.log("ID: ", id);
+        console.log("ID: ", id);
+
+        props.readAlternateMedicineAction(id);
+        props.readRetailerAction(id);
+
         let selectedMedicine;
-        selectedMedicine = medicineList.find(medicine => medicine.id == id);
-        this.setState({selectedMedicine: selectedMedicine});
+        selectedMedicine = medicineData.find(medicine => medicine.id == id);
+        setSelectedMedicine(selectedMedicine);
+        // console.log(selectedMedicine);
+        setAlternateMedicines(alternateMedicinesList);
+    }, []);  
 
-        //Fetching alternate medicines from backend using the id
-        this.setState({alternateMedicines: alternateMedicine});
+    // const {selectedMedicine} = this.state;
+    return (
+        <div className = "location-page">
+            <h1>Location Page</h1>
+            <Container>
+                <Row className = "first-row">
+                    <Col className = "selected-med" lg = {8} md = {8} sm={12}>
+                            <h1>{selectedMedicine.brandName}</h1>
+                            <h3 style = {{marginTop:0}}>{selectedMedicine.manufacturerName}</h3>
+                            <h3 style = {{textTransform : "Capitalize"}}>Dosage: {selectedMedicine.dosageForm}</h3>
+                            <h3 style = {{textTransform : "Capitalize"}}>Packaging: {selectedMedicine.packing}</h3>
+                            {/* <h3 style = {{textTransform : "Capitalize"}}>Price: {selectedMedicine.price}</h3> */}
+                    </Col>
 
-        //Fetching Pharmacies where medicine is available
-        this.setState({pharmacies: pharmacyList});
-    }   
-
-    
-    render(){
-        const {selectedMedicine} = this.state;
-        return (
-            <div className = "location-page">
-                <Container>
-                    <Row className = "first-row">
-                        <Col className = "selected-med" lg = {8} md = {8} sm={12}>
-                                <h1>{selectedMedicine.name}</h1>
-                                <h3 style = {{marginTop:0}}>{selectedMedicine.manufacturer}</h3>
-                                <h3 style = {{textTransform : "Capitalize"}}>Dosage: {selectedMedicine.dosage}</h3>
-                                <h3 style = {{textTransform : "Capitalize"}}>Packaging: {selectedMedicine.packaging}</h3>
-                                <h3 style = {{textTransform : "Capitalize"}}>Price: {selectedMedicine.price}</h3>
-                        </Col>
-
-                        <Col className = "alternate-med" lg = {4} md = {4} sm={12}>
-                            <AlternateMedicines alternateMedicines = {this.state.alternateMedicines}/>
-                        </Col>
-                    </Row>
-                    <MapContainer/>
-                </Container>
-            </div>
-        );
-    }
+                    <Col className = "alternate-med" lg = {4} md = {4} sm={12}>
+                        <AlternateMedicines alternateMedicines = {alternateMedicines}/>
+                    </Col>
+                </Row>
+                <MapContainer retailers = {retailers}/>
+            </Container>
+        </div>
+    );
 }
 
-export default LocationPage;
+export default connect(
+    null,
+    {...medicine.actions, ...retailerInventory.actions}
+)(LocationPage);

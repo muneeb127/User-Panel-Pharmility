@@ -1,21 +1,79 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import { connect, useSelector } from 'react-redux';
 import {Navbar, Nav} from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
 
-function NavbarComponent() {
+import * as auth from '../../../store/ducks/auth.duck';
+import * as order from '../../../store/ducks/order.duck';
+import * as retailerInventory from '../../../store/ducks/retailerInventory.duck';
+import * as searchMedicine from '../../../store/ducks/searchMedicine.duck';
+
+
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+
+function NavbarComponent(props) {
+    let history = useHistory();
+
+    const {isAuthenticated} = useSelector(state => state.auth);
+    const {user} = useSelector(state => state.auth);
+
+    useEffect(()=> {
+        console.log("isAuthenticated: ", isAuthenticated);
+        console.log("User", user);
+    }, [isAuthenticated, user]);
+
+    const onLogoutClick = () => {
+        props.logoutAction();
+        props.fulfillOrderData([]);
+        props.fulfillRetailerData([]);
+        props.fulfillMedicinesData([]);
+        history.push('/');
+    }
+
+    const authLinks = (
+        <>
+            <Nav.Link href="#" onClick = {onLogoutClick}>
+                {/* <i class="fas fa-user"></i> */}
+                Logout
+            </Nav.Link>
+        </>
+      );
+  
+      const guestLinks = (
+        <>
+            <Nav.Link href="/login">
+                <ExitToAppIcon />  | 
+            </Nav.Link>
+            <Nav.Link href="/register">
+                 <PersonAddIcon />
+            </Nav.Link>
+        </>
+      );
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/">Medi Quick</Navbar.Brand>
+            <Navbar.Brand href="/">
+                <img src={process.env.PUBLIC_URL + '/pharmility.png'}></img>
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="#about">About</Nav.Link>    
                     <Nav.Link href="/search">Search</Nav.Link>    
-                    <Nav.Link href="#contact">Contact</Nav.Link>     
+                    {isAuthenticated && <Nav.Link href="/order">Order History</Nav.Link>}
+                    <Nav.Link href="#contact">Contact</Nav.Link>
+                </Nav>
+                <Nav>
+                    {isAuthenticated ? authLinks : guestLinks}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
     )
 }
 
-export default NavbarComponent;
+export default connect(
+    null,
+    {...auth.actions, ...order.actions, ...retailerInventory.actions, ...searchMedicine.actions}
+)(NavbarComponent);

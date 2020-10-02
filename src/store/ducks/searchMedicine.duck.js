@@ -14,7 +14,7 @@ const initialMedicineState = {
 };
 
 export const reducer = persistReducer(
-    { storage, key: "SearchMedicine", whitelist: ["medicines"] },
+    { storage, key: "SearchMedicine", whitelist: ["searchMedicines"] },
     (state = initialMedicineState, action) => {
       switch (action.type) {
         case actionTypes.LoadSearchedMedicine: {
@@ -29,14 +29,15 @@ export const reducer = persistReducer(
 );
 
 export const actions = {
-  readMedicineAction: medicineData => ({type: actionTypes.ReadSearchedMedicine, payload: {medicineData}}),
+  readSearchedMedicineAction: medicineData => ({type: actionTypes.ReadSearchedMedicine, payload: {medicineData}}),
   fulfillMedicinesData: medicines => ({ type: actionTypes.LoadSearchedMedicine, payload: { medicines } })
 };
 
 export function* saga() {
-  yield takeLatest(actionTypes.ReadSearchedMedicine, function* readSaga(readMedicineAction){
-      const medicines = yield getSearchedMedicine(readMedicineAction.payload.medicineData);
-      console.log("Searched Medicine: ", medicines.data);
+  yield takeLatest(actionTypes.ReadSearchedMedicine, function* readSaga(readSearchedMedicineAction){
+      // console.log("Search Medicine Data: ", readSearchedMedicineAction.payload.medicineData);
+      const medicines = yield getSearchedMedicine(readSearchedMedicineAction.payload.medicineData);
+      // console.log("Searched Medicine: ", medicines.data);
       yield put(actions.fulfillMedicinesData(medicines.data));
   })
 }
