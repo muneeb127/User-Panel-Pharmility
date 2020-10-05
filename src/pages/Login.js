@@ -20,13 +20,14 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import '../css/styles.css';
 
 function Copyright() {
 return (
     <Typography variant="body2" color="textSecondary" align="center">
     {'Copyright © '}
     <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Pharmility
     </Link>{' '}
     {new Date().getFullYear()}
     {'.'}
@@ -35,27 +36,43 @@ return (
 }
 
 const useStyles = makeStyles((theme) => ({
-paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-},
-avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-},
-form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-},
-submit: {
-    margin: theme.spacing(3, 0, 2),
-},
-loader: {
-    marginTop: theme.spacing(2),
-    marginLeft: '47%'
-}
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        fontFamily: 'Khula, sans-serif',
+        color: '#171e30'
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        // backgroundColor: theme.palette.secondary.main,
+        backgroundColor:  'rgb(0, 210, 144)',
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+        backgroundColor:  'rgb(0, 210, 144)',
+        '&:hover': {
+            background: 'rgba(29, 245, 177)',
+         },
+    },
+    error : {
+        color: 'red'
+    },
+    link : {
+        color: 'rgba(0, 0, 0, 0.54)',
+        '&:hover': {
+            color: '#171e30',
+         },
+    },
+    loader: {
+        marginTop: theme.spacing(2),
+        marginLeft: '47%'
+    }
 }));
 
 function Login(props) {
@@ -118,7 +135,7 @@ function Login(props) {
             </Typography>
             <form className={classes.form} noValidate onSubmit = {handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid item xs={12} className = {classes.error}>
                     <Controller 
                         as={<TextField
                             variant="outlined"
@@ -142,7 +159,7 @@ function Login(props) {
                         }
                     </ErrorMessage>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} className = {classes.error}>
                     <Controller 
                         as={
                             <TextField
@@ -182,7 +199,7 @@ function Login(props) {
             </Button>
             <Grid container justify="flex-end">
                 <Grid item>
-                <Link href="/register" variant="body2">
+                <Link href="/register" variant="body2" className = {classes.link}>
                     {"Don't have an account? Sign Up"}
                 </Link>
                 </Grid>

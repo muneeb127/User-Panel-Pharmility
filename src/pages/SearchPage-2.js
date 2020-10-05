@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import Container from '@material-ui/core/Container';
 import { Radio, Form, Icon } from 'semantic-ui-react';
 import {connect, useSelector} from "react-redux";
+import { useForm, Controller } from "react-hook-form";
+import { ErrorMessage } from '@hookform/error-message';
 import axios from 'axios';
 
 // import Autocomplete from 'react-autocomplete';
@@ -34,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Search(props){
+
+    const methods = useForm({
+        validateCriteriaMode: "all"
+    });
+    const { handleSubmit, control, errors } = methods;
 
     const [name, setName] = useState("");
     const [type, setType] = useState('brand');
@@ -104,9 +111,10 @@ function Search(props){
                     <div className = {classes.paper}>
                         <h1>Pharmility</h1>
                         <h4>Find Medicines Nearby</h4>
-                        <Form onSubmit={onSubmit}>
+                        {/* <Form onSubmit = {handleSubmit(onSubmit)}> */}
+                        <Form onSubmit={onSubmit} >
                             <Form.Field>
-                                <div className ="ui action input">
+                                <div className ="ui action input error">
                                     <Autocomplete
                                         className = "search-autocomplete"
                                         id="combo-box-demo"
@@ -122,7 +130,41 @@ function Search(props){
                                     <button className ="ui button" type='submit'>
                                         <Icon name="search" size="large"></Icon>
                                     </button>
+
+                                    {/* <Controller 
+                                        as={<Autocomplete
+                                            className = "search-autocomplete"
+                                            id="combo-box-demo"
+                                            value={name}
+                                            onChange={(event, newValue) => {
+                                                setName(newValue);
+                                            }}
+                                            required
+                                            options={type === 'brand'? brandList : genericList}                                
+                                            getOptionLabel={(option) => option.name}
+                                            style={{ width: 500 }}
+                                            renderInput={(params) => <TextField {...params} label="Search Medicine" variant="outlined" />}
+                                            error={errors.email}
+                                            
+                                        />} 
+                                        name="search" 
+                                        control={control} 
+                                        rules={{required: 'Search is required'}}
+                                    />
+                                    <button className ="ui button" type='submit'>
+                                        <Icon name="search" size="large"></Icon>
+                                    </button> */}
                                 </div>
+                                {/* <p>
+                                    <ErrorMessage errors={errors} name="search">
+                                        {({ messages }) =>
+                                        messages &&
+                                        Object.entries(messages).map(([type, message]) => (
+                                            <p key={type}>{message}</p>
+                                        ))
+                                        }
+                                    </ErrorMessage>
+                                </p> */}
                             </Form.Field>
                             
                             <Form.Field>

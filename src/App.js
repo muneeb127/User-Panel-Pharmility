@@ -9,7 +9,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { LastLocationProvider } from 'react-router-last-location';
 
 import HomePage from './pages/HomePage';
-import LocationPage from './pages/LocationPage';
+// import LocationPage from './pages/LocationPage';
+import LocationPage from './pages/LocationPage-2';
 import OrderPage from './pages/OrderPage';
 import CheckOutPage from './pages/CheckOutPage';
 // import SearchPage from './pages/SearchPage';
@@ -30,8 +31,8 @@ function App() {
                     <LastLocationProvider>
                         <NavbarComponent />
                         <Switch>
-                            <Route exact path="/" component = {HomePage} />
-                            <Route exact path="/search" component = {SearchPage} />
+                            {/* <Route exact path="/" component = {HomePage} /> */}
+                            <Route exact path="/" component = {SearchPage} />
                             <Route exact path="/location" component = {LocationPage} />
                             <Route exact path="/login" component = {Login} />
                             <Route exact path="/register" component = {Register} />

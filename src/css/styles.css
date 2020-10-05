@@ -1,7 +1,6 @@
 /* Main Styling */
 /* 
     Fonts:
-    font-family: 'Gilroy';
     font-family: 'Khula', sans-serif;
 
     Colors:
@@ -115,6 +114,10 @@ body, html{
     color: #171e30;
 }
 
+.error{
+    color: red;
+}
+
 /* ========List of Medicines=========== */
 
 .makeStyles-heading-9 {
@@ -163,85 +166,173 @@ h1, h2, h3, h4, h5 {
 
 /* ==================================Location Page====================================== */
 
+.MuiTouchRipple-root:focus {
+    outline: none;
+}
 
+button:focus {
+    outline: none;
+    outline: none;
+}
+
+/* =============================Map Container========================= */
+
+.location-page{
+    height: 100%;
+    padding-bottom: 40px;
+}
+
+.main-div{
+    height: 470px;
+    display: block;
+}
+
+
+.map-container{
+    width: 100%;
+}
+
+.autocomplete{
+    width: 60%;
+    height: 40px;
+    padding-left: 16px;
+    border-radius: 5px;
+    box-shadow: 0 0;
+    display: block;
+    position: relative;
+    z-index: 999;
+    margin-left:auto ;
+    margin-right:auto ;
+    margin-top: 30px;
+    border: 2px solid rgb(0, 210, 144)!important;
+}
+
+.map{
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-top: -70px;
+}
+
+.gmnoprint{
+    display: none;
+}
+
+
+/* =======================================Check out =========================================== */
+
+.checkout-card{
+    width: 100%!important;
+    height: 330px!important;
+    min-height: 330px!important;
+}
+
+.btn-primary {
+    background-color: rgb(0, 210, 144);
+    border-color: rgb(0, 210, 144);
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color:rgba(29, 245, 177);
+    border-color: rgba(29, 245, 177);
+}
+
+.qty-input{
+    color: red;
+}
+
+.qty-input-textbox{
+    width: 440px;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .qty-input-textbox{
+        width: 340px;
+        margin-bottom: 10px;
+    }
+}
+
+/* ======================Medicine Section================================= */
+
+.med-section{
+    /* border: 1px solid black; */
+    padding: 10px;
+}
+
+.icon-right{
+    float: right;
+}
+
+.custom-card{
+    padding: 20px;
+}
+
+.ui.card, .ui.cards > .card {
+    width: 90%;
+    height: 270px;
+    min-height: 270px;
+}
+
+.ui.card > .extra, .ui.cards > .card > .extra {
+    height: 70%;
+}
+
+.ui.card > .content, .ui.cards > .card > .content {
+    color: #171e30;
+    font-family: 'khula', sans-serif;
+}
+
+.ui.card>.content>.header, .ui.cards>.card>.content>.header {
+    
+    font-family: 'Khula', sans-serif;
+    color: #171e30;
+}
+
+.ui.card > .content > .header:not(.ui), .ui.cards > .card > .content > .header:not(.ui) {
+    font-weight: 700;
+    font-size: 2em;
+    margin-top: -0.21425em;
+    line-height: 1.28571em;
+}
+
+.ui.card>.extra a:not(.ui):hover, .ui.cards>.card>.extra a:not(.ui):hover {
+    color: rgba(0,0,0,.4);
+}
+
+.overflow-list{
+    overflow-y: scroll;
+}
+
+@media only screen and (max-width: 600px) {
+    .ui.card, .ui.cards > .card {
+        width: 100%;
+    }
+}
 
 .ui.list .list>.item .header, .ui.list>.item .header {
     display: block;
     margin: 0;
-    font-family: 'Poppins';
+    font-family: 'Khula', sans-serif;
+    color: rgb(0, 210, 144);
     font-weight: 700;
-    color: rgba(0,0,0,.87);
+    cursor: pointer;
 }
 
-/* First Row */
-
-.location-page{
-    font-family: 'Poppins';
-    /* background: #BABAAB; */
-    background: #2ba4c9;
-    height: 100%;
-    padding-top: 90px;
-    padding-bottom: 40px;
+.ui.list .list>.item .header, .ui.list>.item .header:hover {
+    display: block;
+    margin: 0;
+    font-family: 'Khula', sans-serif;
+    color:#171e30;
+    cursor: pointer;
 }
 
-.first-row{
-    background: white;
-    /* margin-top: 20px; */
-    border: 1px solid black;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 5px 10px #d1dce1;
-    opacity: 0.9;
+.ui.list .list > .item .description, .ui.list > .item .description {
+    display: block;
+    color: rgba(0,0,0,.7);
 }
 
-/* Selected Medicine Section */
-
-.selected-med h1{
-    margin-bottom: 0px;
-}
-.selected-med p{
-    text-transform: capitalize;
-}
-
-/* Alternate Medcine Section */
-
-.alternate-med{
-    /* margin-top: 10px; */
-    border-left: 1px solid black;
-}
-
-/* Second Row */
-
-.second-row{
-    min-height: 550px;
-    margin-top: 30px;
-    background: white;
-    margin-top: 20px;
-    border: 1px solid black;
-    padding-top: 20px;
-    padding-bottom: 40px;
-    border-radius: 10px;
-    box-shadow: 5px 10px #d1dce1;
-    opacity: 0.9;
-}
-
-/* Map */
-
-.map {
-    padding: 0;
-}
-
-/* Pharmacy List */
-
-.pharmacy-list{
-    margin-top: 10px;
-    border-left: 1px solid black;
-}
-
-List.item:hover{
-    background-color: brown;
-}
 
 /* =======================================Order Page=========================================== */
 
@@ -277,4 +368,3 @@ List.item:hover{
 .ui.list .list > .item > i.icon, .ui.list > .item > i.icon {
     color: rgb(0, 210, 144);
 }
-

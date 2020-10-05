@@ -8,6 +8,7 @@ import Chip from '@material-ui/core/Chip';
 import { List, Icon } from 'semantic-ui-react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Alert from '@material-ui/lab/Alert';
 
 import '../css/styles.css';
 
@@ -25,28 +26,32 @@ function OrderPage(props) {
     }, [orders]);
 
     let list;
-    list = orders.map((item)=> {
-        return (
-            <List.Item>
-                <List.Content floated='right'>
-                    <List.Header as='a'>Qty: {item.quantity}</List.Header>
-                    <Chip
-                        label={item.status}
-                        color="primary"
-                        variant="outlined"
-                    />
-                </List.Content>
-                <List.Icon name='medkit' size='big' verticalAlign='middle' />
-                <List.Content>
-                    <List.Header as='a'>{item.retailerId}</List.Header>
-                    <List.Description as='a'>{item.retailerAddress}</List.Description>
-                    <List.Description as='a'>{item.orderDate}</List.Description>
-                    <List.Description as='a'>{item.brandName}, {item.dosageFormName}</List.Description>
-                </List.Content>
-            </List.Item>
-        );
-        
-    })
+    if(orders.length > 0){
+        list = orders.map((item)=> {
+            return (
+                <List.Item>
+                    <List.Content floated='right'>
+                        <List.Header as='a'>Qty: {item.quantity}</List.Header>
+                        <Chip
+                            label={item.status}
+                            color="primary"
+                            variant="outlined"
+                        />
+                    </List.Content>
+                    <List.Icon name='medkit' size='big' verticalAlign='middle' />
+                    <List.Content>
+                        <List.Header as='a'>{item.retailerId}</List.Header>
+                        <List.Description as='a'>{item.retailerAddress}</List.Description>
+                        <List.Description as='a'>{item.orderDate}</List.Description>
+                        <List.Description as='a'>{item.brandName}, {item.dosageFormName}</List.Description>
+                    </List.Content>
+                </List.Item>
+            );
+        })
+    }
+    else{
+        list = <Alert severity="info">You have no order history with us</Alert>;
+    }
 
     return (
         <Container component="main" maxWidth="md" className = "order-container">

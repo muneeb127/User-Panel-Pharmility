@@ -16,6 +16,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import '../css/styles.css';
 
 function Copyright() {
   return (
@@ -31,23 +32,38 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        fontFamily: 'Khula, sans-serif',
+        color: '#171e30'
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor:  'rgb(0, 210, 144)',
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(3),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+        backgroundColor:  'rgb(0, 210, 144)',
+        '&:hover': {
+            background: 'rgba(29, 245, 177)',
+        },
+    },
+    error : {
+        color: 'red'
+    },
+    link : {
+        color: 'rgba(0, 0, 0, 0.54)',
+        '&:hover': {
+            color: '#171e30',
+        },
+    },
 }));
 
 function Register(props) {
@@ -95,7 +111,7 @@ function Register(props) {
             </Typography>
             <form className={classes.form} noValidate onSubmit = {handleSubmit(onSubmit)} autoComplete="off">
             <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid item xs={12} className = {classes.error}>
                     <Controller 
                         as={ 
                             <TextField
@@ -121,7 +137,7 @@ function Register(props) {
                         }
                     </ErrorMessage>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} className = {classes.error}>
                     <Controller 
                         as={<TextField
                             variant="outlined"
@@ -145,7 +161,7 @@ function Register(props) {
                         }
                     </ErrorMessage>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} className = {classes.error}>
                     <Controller 
                         as={
                             <TextField
@@ -172,7 +188,7 @@ function Register(props) {
                         }
                     </ErrorMessage>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} className = {classes.error}>
                     <Controller 
                         as={<TextField
                             variant="outlined"
@@ -214,7 +230,7 @@ function Register(props) {
             </Button>
             <Grid container justify="flex-end">
                 <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href="/login" variant="body2" className = {classes.link}>
                     Already have an account? Sign in
                 </Link>
                 </Grid>

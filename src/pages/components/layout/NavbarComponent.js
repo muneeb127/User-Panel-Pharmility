@@ -42,11 +42,13 @@ function NavbarComponent(props) {
   
       const guestLinks = (
         <>
-            <Nav.Link href="/login">
-                <ExitToAppIcon />  | 
+            <Nav.Link href="/login" className = 'navbar-button'>
+                {/* <ExitToAppIcon /> */}
+                 Sign In 
             </Nav.Link>
-            <Nav.Link href="/register">
-                 <PersonAddIcon />
+            <Nav.Link href="/register" className = 'navbar-button'>
+                {/* <PersonAddIcon /> */}
+                 Sign Up
             </Nav.Link>
         </>
       );
@@ -59,11 +61,12 @@ function NavbarComponent(props) {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="#about">About</Nav.Link>    
-                    <Nav.Link href="/search">Search</Nav.Link>    
+                    {/* <Nav.Link href="/">Home</Nav.Link> */}
+                    {/* <Nav.Link href="#about">About</Nav.Link>     */}
+                    {/* <Nav.Link href="/">Search</Nav.Link>     */}
+                    {isAuthenticated && <Nav.Link href="/">Search Medicine</Nav.Link>}
                     {isAuthenticated && <Nav.Link href="/order">Order History</Nav.Link>}
-                    <Nav.Link href="#contact">Contact</Nav.Link>
+                    {/* <Nav.Link href="#contact">Contact</Nav.Link> */}
                 </Nav>
                 <Nav>
                     {isAuthenticated ? authLinks : guestLinks}

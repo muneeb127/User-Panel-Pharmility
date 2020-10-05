@@ -6,6 +6,7 @@ import * as medicine from "./ducks/medicine.duck";
 import * as searchMedicine from "./ducks/searchMedicine.duck";
 import * as retailerInventory from "./ducks/retailerInventory.duck";
 import * as order from "./ducks/order.duck";
+import * as map from "./ducks/map.duck";
 
 
 export const rootReducer = combineReducers({
@@ -13,10 +14,11 @@ export const rootReducer = combineReducers({
     medicine: medicine.reducer,
     searchedMedicine: searchMedicine.reducer,
     retailer: retailerInventory.reducer,
-    order: order.reducer
+    order: order.reducer,
+    map: map.reducer
 }); 
 
 
 export function* rootSaga(){
-    yield all([auth.saga(), medicine.saga(), searchMedicine.saga(), retailerInventory.saga(), order.saga()]);
+    yield all([auth.saga(), medicine.saga(), searchMedicine.saga(), retailerInventory.saga(), order.saga(), map.saga()]);
 }

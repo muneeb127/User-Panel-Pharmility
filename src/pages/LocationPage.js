@@ -17,7 +17,7 @@ function LocationPage(props){
     const [selectedMedicine, setSelectedMedicine] = useState([]);
     const [alternateMedicines, setAlternateMedicines] = useState([]);
 
-    //Fetching all medicines from redux store
+    //Fetching all medicines from redux store\
     let medicineData = [];
     medicineData = useSelector(state => state.medicine.medicines);
 

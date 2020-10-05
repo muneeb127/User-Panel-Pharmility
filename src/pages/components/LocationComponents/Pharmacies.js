@@ -1,10 +1,16 @@
 //Displaying the list of pharmacies on the location page
 import React, {useState, useEffect} from 'react';
-import { List, Loader } from 'semantic-ui-react';
+import {GoogleApiWrapper} from 'google-maps-react';
 import {connect, useSelector} from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as retailerInventory from "../../../store/ducks/retailerInventory.duck";
 import CheckOutModal from '../Checkout/CheckOutModal';
+
+import { Loader, Card, List } from 'semantic-ui-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHospital } from '@fortawesome/free-solid-svg-icons';
+import Chip from '@material-ui/core/Chip';
+
 
 function Pharmacies(props){    
     let history = useHistory();
@@ -14,31 +20,28 @@ function Pharmacies(props){
     const [isSelected, setIsSelected] = useState(false);
     const [selectedPharmacy, setSelectedPharmacy] = useState({});
     
-    // const [currentLocation, setCurrentLocation] = useState(props.currentLocation); 
 
-    // useEffect(()=>{
-    //     calculateDistances();
-    //     // console.log(props);
-    //     // console.log("Retailers: ", retailers);
-    // }, [])
+    useEffect(()=>{
+        // calculateDistances();
+        console.log("Pharmacy Props: ", props);
+        console.log("Retailers: ", retailers);
+    }, [])
 
     let retailers = [];
     retailers = useSelector(state => state.retailer.list);
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
+    let currentLocation = {};
+    currentLocation = useSelector(state => state.map.location);
+    // console.log("Current Location: ", currentLocation);
+
     useEffect(()=> {
         calculateDistances();
-        console.log("Retailers: ", retailers);
-        console.log("isAuthenticated: ", isAuthenticated);
-    }, [retailers]);
-
-    // componentDidUpdate(prevProps) {
-    //     if(!(this.props.currentLocation == prevProps.currentLocation)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
-    //     {
-    //       this.calculateDistances();
-    //     }
-    // }
+        // console.log("Retailers: ", retailers);
+        // console.log("isAuthenticated: ", isAuthenticated);
+        // console.log("Current Location: ", currentLocation);
+    }, [retailers, currentLocation]);
 
     const enableModal = () => {
         setIsSelected(true);
@@ -59,7 +62,7 @@ function Pharmacies(props){
     }
 
     const calculateDistances = () => {
-        const {currentLocation, google} = props;
+        const {google} = props;
 
         let latlngs = retailers.map((item)=>{
             return {lat: item.latitude, lng: item.longitude}; 
@@ -69,41 +72,35 @@ function Pharmacies(props){
             return new google.maps.LatLng(item.lat, item.lng);
         });
 
-        // console.log("destinations ", destinations);
+        console.log("destinations ", destinations);
 
         let origin = new google.maps.LatLng(currentLocation.lat, currentLocation.lng);
         let service = new google.maps.DistanceMatrixService();
 
-        // console.log("service ", service);
-        // console.log("Origin: ", origin);
+        console.log("service ", service);
+        console.log("Origin: ", origin);
 
         service.getDistanceMatrix({
             origins: [origin],
             destinations: destinations,
             travelMode: 'DRIVING'
         }, (res) => {
-            // console.log("response ", res);
             let list = retailers.map((item, index)=>{
-                // console.log(item);
-                // return(
-                //     <List.Item key = {item.RetailerId}>
-                //         <List.Icon name='marker' size='large' verticalAlign='middle' />
-                //         <List.Content>
-                //             <List.Header as='a'>{item.retailerName}</List.Header>
-                //             {/* <List.Description as='a'>{res.rows[0].elements[index].distance.text}</List.Description>
-                //             <List.Description as='a'>{res.rows[0].elements[index].duration.text}</List.Description> */}
-                //         </List.Content>
-                //     </List.Item>
-                // )
                 if(item.quantity > 0 ){ 
                     return (
                         <List.Item key = {index}>
-                            <List.Icon name='marker' size='large' verticalAlign='middle' />
+                            <List.Content floated='right'>
+                                <Chip
+                                    label="In Stock"
+                                    color="primary"
+                                    variant="outlined"
+                                />
+                            </List.Content>
+                            <List.Icon name='marker' size='big' verticalAlign='middle' />
                             <List.Content>
                                 <List.Header as='a' onClick = {() => onPharmacyClick(item)}>{item.retailerName}</List.Header>
-                                <List.Description>Medicine In Stock</List.Description>
-                                {/* <List.Description as='a'>{res.rows[0].elements[index].distance.text}</List.Description>
-                                <List.Description as='a'>{res.rows[0].elements[index].duration.text}</List.Description> */}
+                                <List.Description as='a'>{res.rows[0].elements[index].distance.text}</List.Description>
+                                <List.Description as='a'>{res.rows[0].elements[index].duration.text}</List.Description>
                             </List.Content>
                         </List.Item>
                     );
@@ -111,12 +108,18 @@ function Pharmacies(props){
                 else{
                     return (
                         <List.Item key = {index}>
-                            <List.Icon name='marker' size='large' verticalAlign='middle' />
+                            <List.Content floated='right'>
+                                <Chip
+                                    label="Our of Stock"
+                                    color="secondary"
+                                    variant="outlined"
+                                />
+                            </List.Content>
+                            <List.Icon name='marker' size='big' verticalAlign='middle' />
                             <List.Content>
                                 <List.Header as='a'>{item.retailerName}</List.Header>
-                                <List.Description>Medicine Out of Stock</List.Description>
-                                {/* <List.Description as='a'>{res.rows[0].elements[index].distance.text}</List.Description>
-                                <List.Description as='a'>{res.rows[0].elements[index].duration.text}</List.Description> */}
+                                <List.Description as='a'>{res.rows[0].elements[index].distance.text}</List.Description>
+                                <List.Description as='a'>{res.rows[0].elements[index].duration.text}</List.Description>
                             </List.Content>
                         </List.Item>
                     );
@@ -131,19 +134,25 @@ function Pharmacies(props){
     
     return(
         <>
-            <List divided relaxed>
-                <h1>Pharmacies</h1>
-                {/* {this.state.list} */}
-                {loading ? <Loader size='massive' active inline='centered' /> : retailersList}
-            </List>
+            <Card>
+                <Card.Content>
+                    <FontAwesomeIcon className = "icon-right" size = "4x" icon={faHospital} />
+                    <Card.Header>Pharmacies</Card.Header>
+                </Card.Content>
+                <Card.Content extra className = "overflow-list">
+                    <List divided relaxed>
+                        {loading ? <Loader size='massive' active inline='centered' /> : retailersList}
+                    </List>
+                </Card.Content>
+            </Card>
             {isSelected && <CheckOutModal inventoryData = {selectedPharmacy} disableModal = {disableModal}/>}
-            {/* {isSelected && isAuthenticated ? <CheckOutModal data = {selectedPharmacy} disableModal = {disableModal}/> : history.push('/login') */}
         </>
     )
 }
 
-export default connect(
+export default GoogleApiWrapper({
+    apiKey: "AIzaSyC-0ff6dw9PJbMb-28OlWi5Oz9igGeATcM"
+})(connect(
     null,
     retailerInventory.actions
-)(Pharmacies);
-
+)(Pharmacies));
