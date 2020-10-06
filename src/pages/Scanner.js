@@ -5,26 +5,51 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import '../css/styles.css';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Timeline from '@material-ui/lab/Timeline';
+import TimelineItem from '@material-ui/lab/TimelineItem';
+import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
+import TimelineConnector from '@material-ui/lab/TimelineConnector';
+import TimelineContent from '@material-ui/lab/TimelineContent';
+import TimelineDot from '@material-ui/lab/TimelineDot';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWarehouse} from '@fortawesome/free-solid-svg-icons';
+import { faIndustry} from '@fortawesome/free-solid-svg-icons';
+import { faClinicMedical } from '@fortawesome/free-solid-svg-icons';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    padding: '6px 16px',
+  },
+  secondaryTail: {
+    backgroundColor: theme.palette.secondary.main,
+  },
+}));
 
 function Scanner(props){
+
+    const classes = useStyles();
+
 
     const [delay, setDelay] = useState();
     const [result, setResult] = useState('No result');
     const [show, setShow] = useState(false);
 
+    useEffect(()=> {
+        let information = "GTIN:12345,BatchNo:B11,SerialNumber:12";
+        let infoArr = information.split(',');
+        let result = information.split(',').map(s => s.split(':')).slice(0);
+        const obj = Object.fromEntries(result);
+        console.log("Info: ", infoArr);
+        console.log("Res: ", result);
+        console.log(obj);
+    });
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    // constructor(props){
-    //     super(props)
-    //     this.state = {
-    //         delay: 100,
-    //         result: 'No result'
-    //     }
-
-    //     this.handleScan = this.handleScan.bind(this);
-    //     // this.openImageDialog = this.openImageDialog.bind(this);
-    // }
-  
  
     const handleScan = data => {
         if (data){
@@ -59,7 +84,75 @@ function Scanner(props){
                     <Modal.Header closeButton>
                     <Modal.Title>QR Code Result</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>{result}</Modal.Body>
+                    <Modal.Body>
+                        {result}
+                        <Timeline align="alternate">
+                            <TimelineItem>
+                                <TimelineSeparator>
+                                <TimelineDot>
+                                    <FontAwesomeIcon size = "2x" icon={faIndustry} />
+                                </TimelineDot>
+                                <TimelineConnector />
+                                </TimelineSeparator>
+                                <TimelineContent>
+                                <Paper elevation={3} className={classes.paper}>
+                                    <Typography variant="h6" component="h1">
+                                    Eat
+                                    </Typography>
+                                    <Typography>Because you need strength</Typography>
+                                </Paper>
+                                </TimelineContent>
+                            </TimelineItem>
+                            <TimelineItem>
+                                <TimelineSeparator>
+                                <TimelineDot>
+                                    <FontAwesomeIcon size = "2x" icon={faIndustry} />
+                                </TimelineDot>
+                                <TimelineConnector />
+                                </TimelineSeparator>
+                                <TimelineContent>
+                                <Paper elevation={3} className={classes.paper}>
+                                    <Typography variant="h6" component="h1">
+                                    Eat
+                                    </Typography>
+                                    <Typography>Because you need strength</Typography>
+                                </Paper>
+                                </TimelineContent>
+                            </TimelineItem>
+                            <TimelineItem>
+                                <TimelineSeparator>
+                                <TimelineDot>
+                                    <FontAwesomeIcon size = "2x" icon={faWarehouse} />
+                                </TimelineDot>
+                                <TimelineConnector />
+                                </TimelineSeparator>
+                                <TimelineContent>
+                                <Paper elevation={3} className={classes.paper}>
+                                    <Typography variant="h6" component="h1">
+                                    Code
+                                    </Typography>
+                                    <Typography>Because it&apos;s awesome!</Typography>
+                                </Paper>
+                                </TimelineContent>
+                            </TimelineItem>
+                            <TimelineItem>
+                                <TimelineSeparator>
+                                <TimelineDot>
+                                    <FontAwesomeIcon size = "2x" icon={faWarehouse} />
+                                </TimelineDot>
+                                <TimelineConnector />
+                                </TimelineSeparator>
+                                <TimelineContent>
+                                <Paper elevation={3} className={classes.paper}>
+                                    <Typography variant="h6" component="h1">
+                                    Code
+                                    </Typography>
+                                    <Typography>Because it&apos;s awesome!</Typography>
+                                </Paper>
+                                </TimelineContent>
+                            </TimelineItem>
+                        </Timeline>
+                    </Modal.Body>
                     <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>
                         Close
