@@ -12,9 +12,9 @@ import HomePage from './pages/HomePage';
 // import LocationPage from './pages/LocationPage';
 import LocationPage from './pages/LocationPage-2';
 import OrderPage from './pages/OrderPage';
-import CheckOutPage from './pages/CheckOutPage';
 // import SearchPage from './pages/SearchPage';
 import SearchPage from './pages/SearchPage-2';
+import Scanner from './pages/Scanner';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NavbarComponent from './pages/components/layout/NavbarComponent';
@@ -36,8 +36,8 @@ function App() {
                             <Route exact path="/location" component = {LocationPage} />
                             <Route exact path="/login" component = {Login} />
                             <Route exact path="/register" component = {Register} />
+                            <Route exact path="/scanner" component = {Scanner} />
                             <PrivateRoute exact path = "/order" component = {OrderPage}/>
-                            <PrivateRoute exact path = "/checkout" component = {CheckOutPage}/>
                         </Switch>
                     </LastLocationProvider>
                 </Router>

@@ -118,6 +118,45 @@ body, html{
     color: red;
 }
 
+.MuiCardMedia-root {
+    text-align: center!important;
+    padding-top: 20px!important;
+    color: #171e30!important;
+}
+
+.MuiTypography-h5 {
+    color: #171e30!important;
+    text-align: center!important;
+    font-size: 2.5rem!important;
+    font-family: "Khula" sans-serif!important;
+    font-weight: 400;
+    line-height: 1.334;
+    letter-spacing: 0em;
+}
+
+.MuiTypography-body2 {
+    text-align: center!important;
+    font-size: 0.99rem!important;
+    font-family: "Khula", sans-serif;
+}
+
+.MuiPaper-elevation1 {
+    box-shadow: 0px 2px 1px -1px rgb(0, 210, 144), 0px 1px 1px 0px rgb(0, 210, 144), 0px 1px 3px 0px rgb(0, 210, 144)!important;
+}
+
+.MuiCard-root:hover {
+    background-color: #e3fff0;
+    cursor: default!important;
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: default;
+}
+
+.medicine-badges{
+    margin-top: -20px;
+}
+
 /* ========List of Medicines=========== */
 
 .makeStyles-heading-9 {
@@ -367,4 +406,44 @@ button:focus {
 
 .ui.list .list > .item > i.icon, .ui.list > .item > i.icon {
     color: rgb(0, 210, 144);
+}
+
+.pending-order {
+    border: 1px solid #2185d0!important;
+    background-color: transparent;
+    color: #2185d0!important;
+    margin-top: 10px;
+}
+
+
+.MuiChip-colorSecondary {
+    color: #fff;
+    background-color: #f50057;
+    margin-top: 10px;
+}
+
+.order-quantity{
+    margin-top: 2px;
+    text-align: center;
+}
+
+.retailer-name{
+    color: #171e30!important;
+}
+
+.ui.list .list>.item, .ui.list>.item, ol.ui.list li, ul.ui.list li {
+    padding: 0.75em 0;
+}
+
+.MuiChip-root {
+    width: 90px;
+}
+
+/* ===================================Scanner Page======================================= */
+
+.scanner-layout{
+    background-color: #c0fade;
+    height: 100%;
+    padding-top: 58px;
+    padding-bottom: 100px;
 }

@@ -15,7 +15,7 @@ import '../css/styles.css';
 function OrderPage(props) {
 
     const user = useSelector(state => state.auth.user);
-    const orders = useSelector(state => state.order.list);
+    let orders = useSelector(state => state.order.list);
 
     useEffect(()=>{
         props.readOrderAction(user.userid);
@@ -25,24 +25,39 @@ function OrderPage(props) {
         console.log("Orders: ", orders);
     }, [orders]);
 
+    const CustomDate = (date) => {
+        console.log("Date: ", date);
+        console.log(typeof(date));
+        const dateObj = new Date(date);
+        return(
+            <>
+            <span>{dateObj.toLocaleDateString("en-GB", {year: 'numeric', month: 'short', day: 'numeric'})}</span>
+            {/* <span>, {dateObj.toLocaleTimeString("en-US")}</span> */}
+            </>
+        )
+    }
+
     let list;
     if(orders.length > 0){
+        orders = orders.reverse();
         list = orders.map((item)=> {
             return (
                 <List.Item>
                     <List.Content floated='right'>
-                        <List.Header as='a'>Qty: {item.quantity}</List.Header>
+                        <List.Header className = "order-quantity">Qty: {item.quantity}</List.Header>
                         <Chip
                             label={item.status}
-                            color="primary"
+                            color= {item.status == 'Fulfilled'?"primary":(item.status == 'Cancelled'?"secondary":"default")}
                             variant="outlined"
+                            className = {item.status === 'Pending'?"pending-order":""}
                         />
                     </List.Content>
                     <List.Icon name='medkit' size='big' verticalAlign='middle' />
                     <List.Content>
-                        <List.Header as='a'>{item.retailerId}</List.Header>
+                        <List.Header className = "retailer-name">{item.retailerId}</List.Header>
                         <List.Description as='a'>{item.retailerAddress}</List.Description>
-                        <List.Description as='a'>{item.orderDate}</List.Description>
+                        {/* <List.Description as='a'>{item.orderDate}</List.Description> */}
+                        <List.Description as='a'>{CustomDate(item.orderDate)}</List.Description>
                         <List.Description as='a'>{item.brandName}, {item.dosageFormName}</List.Description>
                     </List.Content>
                 </List.Item>

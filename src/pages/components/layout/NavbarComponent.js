@@ -63,8 +63,8 @@ function NavbarComponent(props) {
                 <Nav className="mr-auto">
                     {/* <Nav.Link href="/">Home</Nav.Link> */}
                     {/* <Nav.Link href="#about">About</Nav.Link>     */}
-                    {/* <Nav.Link href="/">Search</Nav.Link>     */}
-                    {isAuthenticated && <Nav.Link href="/">Search Medicine</Nav.Link>}
+                    <Nav.Link href="/">Search Medicine</Nav.Link>
+                    <Nav.Link href="/scanner">QR Scanner</Nav.Link>    
                     {isAuthenticated && <Nav.Link href="/order">Order History</Nav.Link>}
                     {/* <Nav.Link href="#contact">Contact</Nav.Link> */}
                 </Nav>

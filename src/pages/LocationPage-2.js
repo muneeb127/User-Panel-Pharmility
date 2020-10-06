@@ -54,9 +54,10 @@ function LocationPage(props){
         let selectedMedicine;
         selectedMedicine = medicineData.find(medicine => medicine.id == id);
         setSelectedMedicine(selectedMedicine);
-        // console.log(selectedMedicine);
+        console.log(selectedMedicine);
         // setAlternateMedicines(alternateMedicinesList);
     }, []);  
+    
 
     // const {selectedMedicine} = this.state;
     return (

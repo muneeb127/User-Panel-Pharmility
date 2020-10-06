@@ -50,5 +50,6 @@ export function* saga() {
     const orders = yield getOrdersByUserId(createOrderAction.payload.orderData.userId);
     console.log("Orders: ", orders.data);
     yield put(actions.fulfillOrderData(orders.data));
+    
 })
 }

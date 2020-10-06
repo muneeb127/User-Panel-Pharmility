@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Container from '@material-ui/core/Container';
-import { Radio, Form, Icon } from 'semantic-ui-react';
+import { Radio, Form, Icon} from 'semantic-ui-react';
 import {connect, useSelector} from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
@@ -10,17 +10,32 @@ import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClinicMedical} from '@fortawesome/free-solid-svg-icons';
+import { faSearchPlus} from '@fortawesome/free-solid-svg-icons';
+import { faQrcode } from '@fortawesome/free-solid-svg-icons';
 
 import * as searchMedicine from "../store/ducks/searchMedicine.duck";
 import * as medicine from "../store/ducks/medicine.duck";
 import SearchList from './components/SearchComponents/SearchList';
 import '../css/styles.css';
 
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
           margin: theme.spacing(1),
         },
+        
     },
     paper: {
         marginTop: theme.spacing(8),
@@ -31,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     form: {
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
+    },
+    media: {
+        height: 140,
     },
 
 }));
@@ -67,13 +85,14 @@ function Search(props){
     }, [searchedMedicine]);
 
     useEffect(()=> {
+        props.readMedicineAction();
         console.log(props);
         axios.get('https://localhost:44319/api/brand')
         .then(res => res.data)
         .then(data => {
             setBrandList(data);
         });
-   
+        
         axios.get('https://localhost:44319/api/generic')
         .then(res => res.data)
         .then(data => {
@@ -192,6 +211,65 @@ function Search(props){
             </div>
             <Container className = "medicine-list" maxWidth="sm">
                 {isSubmitted && <SearchList/>}
+            </Container>
+            <Container className = "medicine-badges" maxWidth = "lg">
+                <Row>
+                    <Col className = "custom-card" xs={12} md={4} lg={4}>
+                        <Card>
+                            <CardActionArea>
+                                <CardMedia>
+                                    <FontAwesomeIcon size = "6x" icon={faSearchPlus} />
+                                </CardMedia>
+                                <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    Search Medicines
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    You can now search for any kind of medicine without having to go through the hectic
+                                    process of finding it across different stores
+                                </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                    </Col>
+                    <Col className = "custom-card" xs={12} md={4} lg={4}>
+                        <Card>
+                            <CardActionArea>
+                                <CardMedia>
+                                    <FontAwesomeIcon size = "6x" icon={faClinicMedical} />
+                                </CardMedia>
+                                <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    Locate Pharmacies
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    Locate the nearest pharmacy where your needed medicine is available, reserve it and pick it
+                                    at your own ease
+                                </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                    </Col>
+                    <Col className = "custom-card" xs={12} md={4} lg={4}>
+                        <Card>
+                            <CardActionArea>
+                                <CardMedia>
+                                    <FontAwesomeIcon size = "6x" icon={faQrcode} />
+                                </CardMedia>
+                                <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    Validate Supply Chain
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    Authenticate your medicine by scanning the qr-code on the packaging to validate the complete 
+                                    supply-chain through which the medicine reached you
+                                </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                    </Col>
+                </Row>
+                
             </Container>
         </div>
     )
