@@ -36,7 +36,7 @@ function CheckOutModal(props) {
     const handleModalSubmit = (data) => {
         let orderData = {
             inventoryId: inventoryData.id,
-            statusId: 2,
+            statusId: 12,
             date : new Date().toLocaleDateString("en-GB", {year: 'numeric', month: 'short', day: 'numeric'}),
             quantity: data.quantity,
             userId: user.userid
